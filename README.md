@@ -81,13 +81,27 @@ http://localhost:3000
 ## What is in here
 
 ```
-src/                          the app you are building; it is empty on purpose
-  router.tsx                  router setup
-  routes/__root.tsx           the document shell
-  routes/index.tsx            placeholder home page
-functions/personal-account/   the Function, already written
+src/
+  router.tsx                  router setup; the QueryClient is built per request
+  components/Header.tsx       "Sign in", or the first name and "Log out"
+  lib/queries.ts              the two server reads, described once
+  lib/safe-redirect.ts        keeps ?redirect on this origin
+  server/env.ts               the only place the Appwrite credentials are read
+  server/appwrite.ts          admin client vs session client
+  server/session-cookie.ts    the session secret, httpOnly
+  server/auth.ts              send code, verify code, who is signed in, log out
+  server/personal-account.ts  the only door to profile data
+  routes/__root.tsx           document shell; loads the header's data during SSR
+  routes/index.tsx            home
+  routes/signin.tsx           email, then code
+  routes/onboarding.tsx       first name, last name, role
+  routes/profile.tsx          view and edit
+functions/personal-account/   the Function, unchanged from the starter
 appwrite.config.json          database, table and Function definitions
 ```
+
+Everything under `src/server/` runs on the server only. `NOTES.md` explains why
+that line is where it is, and where this app does not do what the brief asked.
 
 Other scripts:
 
