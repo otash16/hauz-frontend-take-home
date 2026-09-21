@@ -1,6 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query'
 import {
   HeadContent,
+  Link,
   Outlet,
   Scripts,
   createRootRouteWithContext,
@@ -46,7 +47,20 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
   shellComponent: RootDocument,
   component: RootLayout,
+  notFoundComponent: NotFound,
 })
+
+/** An unknown URL still gets the header, so there is a way back out of it. */
+function NotFound() {
+  return (
+    <main>
+      <h1>Not found</h1>
+      <p>
+        There is nothing at this address. <Link to="/">Back to home</Link>.
+      </p>
+    </main>
+  )
+}
 
 function RootLayout() {
   const { user, account } = Route.useRouteContext()
