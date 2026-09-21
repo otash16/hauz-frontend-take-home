@@ -1,12 +1,13 @@
 /**
  * Every Appwrite credential is read here and nowhere else.
  *
- * Only modules under `src/server/` import this file, and those modules are only
- * ever reached through a server function, so nothing in here is reachable from
- * the browser bundle.
+ * Only modules under `src/server/` import this file, and those are only ever
+ * reached through a server function, so nothing here is in the browser bundle.
  *
- * A missing value throws on first use rather than turning into a puzzling 401
- * from Appwrite several layers later.
+ * The values are getters rather than constants so a missing one is reported the
+ * moment something actually needs it. Read eagerly, a half-filled `.env` would
+ * take down even the pages that never talk to Appwrite, and the message would
+ * arrive far from whatever asked for it.
  */
 
 import 'dotenv/config'
@@ -24,8 +25,16 @@ function required(name: string): string {
 }
 
 export const env = {
-  endpoint: required('APPWRITE_ENDPOINT'),
-  projectId: required('APPWRITE_PROJECT_ID'),
-  apiKey: required('APPWRITE_API_KEY'),
-  functionId: process.env.APPWRITE_FUNCTION_ID || 'personal-account',
+  get endpoint() {
+    return required('APPWRITE_ENDPOINT')
+  },
+  get projectId() {
+    return required('APPWRITE_PROJECT_ID')
+  },
+  get apiKey() {
+    return required('APPWRITE_API_KEY')
+  },
+  get functionId() {
+    return process.env.APPWRITE_FUNCTION_ID || 'personal-account'
+  },
 }
