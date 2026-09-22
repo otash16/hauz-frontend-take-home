@@ -91,6 +91,16 @@ function Profile() {
 
   const save = useMutation({
     mutationFn: () => {
+      // The browser's `required` lets a single space through, and the Function
+      // answers that with "send null to clear this field" — advice that makes
+      // no sense for a name, which cannot be cleared at all. Say what is wrong.
+      if (!form.firstName.trim() || !form.lastName.trim()) {
+        return Promise.resolve({
+          ok: false as const,
+          message: 'First name and last name cannot be empty.',
+        })
+      }
+
       const edit = buildEdit(account, form)
 
       // The Function rejects an empty edit, and rightly so. Answer it here
