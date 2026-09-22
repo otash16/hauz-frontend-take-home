@@ -44,7 +44,6 @@ are logistics, not decisions about the code.
 - *(two screenshots of the device-code page)*
 - `katak yetmadi va continue bossam ishlamadi. That code is invalid or has expired.` — *the device page has six boxes and the CLI gives an eight character code, so login is impossible*
 - `tayyor hammasini belgiladim lekin avval ham belgilangan edi hammasi` — *all scopes were already selected*
-- `hauz-frontend-take-home reponi qanday yaratishni ayt` — *how do you want me to create the repo*
 - `davom et` — *go on*
 - `https://github.com/otash16/hauz-frontend-take-home yaratildi` — *created*
 
