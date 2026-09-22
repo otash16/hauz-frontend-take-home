@@ -10,6 +10,8 @@
  * arrive far from whatever asked for it.
  */
 
+// The dev server happens to load `.env` on its own, but that is its behaviour,
+// not a guarantee the built server shares. Loading it here makes both the same.
 import 'dotenv/config'
 
 function required(name: string): string {
